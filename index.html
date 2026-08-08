@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Mentor - Live Spot Prices</title>
+    <title>Trading Mentor - Live Analytics</title>
     <style>
         * {
             box-sizing: border-box;
@@ -11,77 +11,131 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        /* Indian Tri-Color Gradient Background */
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background: linear-gradient(135deg, #FF9933 0%, #111827 45%, #138808 100%);
+            color: #ffffff;
             display: flex;
             min-height: 100vh;
         }
+
+        /* Sidebar Glassmorphism */
         .sidebar {
-            width: 250px;
-            background-color: #1e293b;
+            width: 260px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
             padding: 24px;
-            border-right: 1px solid #334155;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
         }
+
         .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #38bdf8;
+            font-size: 22px;
+            font-weight: 800;
+            color: #FF9933;
             margin-bottom: 32px;
             display: flex;
             align-items: center;
             gap: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
+
         .nav-item {
             display: block;
             padding: 12px 16px;
-            color: #94a3b8;
+            color: #cbd5e1;
             text-decoration: none;
             border-radius: 8px;
             margin-bottom: 8px;
-            transition: all 0.2s;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
+
         .nav-item:hover, .nav-item.active {
-            background-color: #334155;
-            color: #f8fafc;
+            background: rgba(255, 153, 51, 0.2);
+            color: #ffffff;
+            border-left: 4px solid #FF9933;
         }
+
         .main-content {
             flex: 1;
-            padding: 24px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .badge {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            background: #0284c7;
-            color: #e0f2fe;
+            font-size: 13px;
+            font-weight: 700;
+            background: #138808;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(19, 136, 8, 0.5);
         }
+
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
+
+        /* Glassmorphic Live Spot Cards */
         .card-box {
-            background-color: #1e293b;
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
         }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .index-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
         .lot-info {
             font-size: 12px;
-            color: #38bdf8;
-            margin-top: 8px;
+            color: #FF9933;
+            background: rgba(255, 153, 51, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
             font-weight: 600;
+            border: 1px solid rgba(255, 153, 51, 0.2);
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 100px;
+            border: none;
+            overflow: hidden;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -101,60 +155,36 @@
 
     <div class="main-content">
         <div class="header">
-            <h2>Live Spot Price Monitor</h2>
-            <span class="badge">● Live Feed Connected</span>
+            <h2>Live Indian Indices Spot Monitor</h2>
+            <span class="badge">● Live Market Stream</span>
         </div>
 
         <div class="cards-grid">
             <!-- NIFTY 50 CARD -->
             <div class="card-box">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    {
-                    "symbol": "NSE:NIFTY",
-                    "width": "100%",
-                    "colorTheme": "dark",
-                    "isTransparent": true,
-                    "locale": "en"
-                    }
-                    </script>
+                <div class="card-header">
+                    <span class="index-title">NIFTY 50</span>
+                    <span class="lot-info">Lot: 65 | Tue Expiry</span>
                 </div>
-                <div class="lot-info">1 Lot Size = 65 | Tuesday Expiry</div>
+                <iframe class="iframe-container" src="https://widget.tradingview.com/singlequote/?symbol=NSE%3ANIFTY&colorTheme=dark" scrolling="no"></iframe>
             </div>
 
             <!-- SENSEX CARD -->
             <div class="card-box">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    {
-                    "symbol": "BSE:SENSEX",
-                    "width": "100%",
-                    "colorTheme": "dark",
-                    "isTransparent": true,
-                    "locale": "en"
-                    }
-                    </script>
+                <div class="card-header">
+                    <span class="index-title">SENSEX</span>
+                    <span class="lot-info">Lot: 20 | Thu Expiry</span>
                 </div>
-                <div class="lot-info">1 Lot Size = 20 | Thursday Expiry</div>
+                <iframe class="iframe-container" src="https://widget.tradingview.com/singlequote/?symbol=BSE%3ASENSEX&colorTheme=dark" scrolling="no"></iframe>
             </div>
 
             <!-- BANK NIFTY CARD -->
             <div class="card-box">
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-                    {
-                    "symbol": "NSE:BANKNIFTY",
-                    "width": "100%",
-                    "colorTheme": "dark",
-                    "isTransparent": true,
-                    "locale": "en"
-                    }
-                    </script>
+                <div class="card-header">
+                    <span class="index-title">BANK NIFTY</span>
+                    <span class="lot-info">Lot: 30 | Last Tue Expiry</span>
                 </div>
-                <div class="lot-info">1 Lot Size = 30 | Last Tuesday Expiry</div>
+                <iframe class="iframe-container" src="https://widget.tradingview.com/singlequote/?symbol=NSE%3ABANKNIFTY&colorTheme=dark" scrolling="no"></iframe>
             </div>
         </div>
     </div>
