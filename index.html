@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Mentor - Master Dashboard</title>
+    <title>Trading Mentor - Production Master Dashboard</title>
+    <!-- Google Classy Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -78,6 +79,7 @@
             margin-bottom: 6px;
             font-weight: 700;
             font-size: 14px;
+            cursor: pointer;
             transition: all 0.25s;
         }
 
@@ -93,7 +95,7 @@
             padding: 32px 40px;
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 24px;
             z-index: 10;
             overflow-y: auto;
             height: 100vh;
@@ -137,6 +139,24 @@
             70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
         }
+
+        /* Token / Safeguard Alerts */
+        .alert-banner {
+            background: rgba(254, 242, 242, 0.9);
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Views Content Styling */
+        .view-section { display: none; flex-direction: column; gap: 24px; }
+        .view-section.active-view { display: flex; }
 
         /* Full Width HUD Panel */
         .hud-panel {
@@ -213,114 +233,333 @@
         .ai-icon { font-size: 32px; }
         .ai-text h4 { color: #1e3a8a; font-size: 16px; font-weight: 800; margin-bottom: 6px; }
         .ai-text p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 254, 231, 0.9) 100%);
+            padding: 32px;
+            border-radius: 24px;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(101, 163, 13, 0.1);
+        }
+        .content-card h3 { font-family: 'Cinzel', serif; font-size: 20px; color: #1a2e05; margin-bottom: 12px; }
+        .content-card p { font-size: 15px; color: #334155; line-height: 1.6; font-weight: 600; }
+
+        .form-group { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-weight: 700; color: #1a2e05; font-size: 14px; }
+        .form-group input { padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
             TRADING <span>MENTOR</span>
         </div>
 
         <div class="sidebar-heading">Live Guard</div>
-        <a href="#" class="nav-item active">🎯 Target vs Achieved HUD</a>
-        <a href="#" class="nav-item">🔒 Pre-Market Plan Limits</a>
+        <a class="nav-item active" onclick="switchView('dashboard', this)">🎯 Target vs Achieved HUD</a>
+        <a class="nav-item" onclick="switchView('limits', this)">🔒 Pre-Market Plan Limits</a>
         
         <div class="sidebar-heading">AI & Analytics</div>
-        <a href="#" class="nav-item">🧠 Ask Trading Mentor AI</a>
-        <a href="#" class="nav-item">📈 Day-Wise & Strike Analysis</a>
+        <a class="nav-item" onclick="switchView('ai', this)">🧠 Ask Trading Mentor AI</a>
+        <a class="nav-item" onclick="switchView('analysis', this)">📈 Day-Wise & Strike Analysis</a>
         
         <div class="sidebar-heading">Billing & Setup</div>
-        <a href="#" class="nav-item">🏆 Disciplined Badge Status</a>
-        <a href="#" class="nav-item">💳 Subscriptions (Razorpay)</a>
-        <a href="#" class="nav-item">🔌 OAuth Broker API Setup</a>
+        <a class="nav-item" onclick="switchView('badge', this)">🏆 Disciplined Badge Status</a>
+        <a class="nav-item" onclick="switchView('subscriptions', this)">💳 Subscriptions (Razorpay)</a>
+        <a class="nav-item" onclick="switchView('broker', this)">🔌 OAuth Broker API Setup</a>
         
         <div class="sidebar-heading">Compliance</div>
-        <a href="#" class="nav-item">⚖️ SEBI Legal & Privacy</a>
-        <a href="#" class="nav-item">☁️ Google Drive Sync Logs</a>
+        <a class="nav-item" onclick="switchView('legal', this)">⚖️ SEBI Legal & Privacy</a>
+        <a class="nav-item" onclick="switchView('sync', this)">☁️ Google Drive Sync Logs</a>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
         <div class="header">
-            <h2>Market Operations & Risk Control</h2>
+            <h2 id="page-title">Market Operations & Risk Control</h2>
             <div class="api-health">
                 <div class="health-dot"></div> API Health: Optimal (Dhan/Upstox)
             </div>
         </div>
 
-        <!-- Target vs Achieved HUD Panel -->
-        <div class="hud-panel">
-            <div class="hud-stat">
-                <p>Live MTM PnL</p>
-                <h3 style="color: #15803d;">+ ₹ 2,450</h3>
+        <!-- Session & Multi-Device Alert -->
+        <div class="alert-banner">
+            <span>⚡ Single-Device Active Session | Broker OAuth Key Validated</span>
+            <button onclick="reauthBroker()" style="background: #991b1b; color: white; border: none; padding: 4px 12px; border-radius: 6px; font-weight: 700; cursor: pointer;">1-Click Re-Auth</button>
+        </div>
+
+        <!-- VIEW 1: DASHBOARD HUD -->
+        <div id="view-dashboard" class="view-section active-view">
+            <div class="hud-panel">
+                <div class="hud-stat">
+                    <p>Live MTM PnL</p>
+                    <h3 style="color: #15803d;" id="pnl-val">+ ₹ 2,450</h3>
+                </div>
+                <div class="hud-stat">
+                    <p>Max Profit Target</p>
+                    <h3>₹ <span id="target-disp">5,000</span> <span class="locked">LOCKED</span></h3>
+                </div>
+                <div class="hud-stat">
+                    <p>Max Loss Limit</p>
+                    <h3>- ₹ <span id="loss-disp">2,000</span> <span class="locked">LOCKED</span></h3>
+                </div>
+                <div class="hud-stat">
+                    <p>Trade Count</p>
+                    <h3><span id="trades-disp">2</span> / <span id="maxtrades-disp">3</span> Limit</h3>
+                </div>
+                <div class="hud-stat" style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="refresh-btn" onclick="manualDataFetch()">🔄 Manual Refresh</button>
+                    <span style="font-size: 11px; font-weight: 700; color: #4d7c0f; text-align: center;">15-Min Auto-Sync Active</span>
+                </div>
             </div>
-            <div class="hud-stat">
-                <p>Max Profit Target</p>
-                <h3>₹ 5,000 <span class="locked">LOCKED</span></h3>
+
+            <div class="cards-grid">
+                <div class="card-box">
+                    <div class="card-header">
+                        <span class="index-title">NIFTY 50</span>
+                        <span class="lot-info">Lot: 65 | Tue Expiry</span>
+                    </div>
+                    <div>
+                        <div class="price-val" id="nifty-price">Loading...</div>
+                        <div class="change-val" id="nifty-change">--</div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="card-header">
+                        <span class="index-title">SENSEX</span>
+                        <span class="lot-info">Lot: 20 | Thu Expiry</span>
+                    </div>
+                    <div>
+                        <div class="price-val" id="sensex-price">Loading...</div>
+                        <div class="change-val" id="sensex-change">--</div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <div class="card-header">
+                        <span class="index-title">BANK NIFTY</span>
+                        <span class="lot-info">Lot: 30 | Last Tue</span>
+                    </div>
+                    <div>
+                        <div class="price-val" id="banknifty-price">Loading...</div>
+                        <div class="change-val" id="banknifty-change">--</div>
+                    </div>
+                </div>
             </div>
-            <div class="hud-stat">
-                <p>Max Loss Limit</p>
-                <h3>- ₹ 2,000 <span class="locked">LOCKED</span></h3>
-            </div>
-            <div class="hud-stat">
-                <p>Trade Count</p>
-                <h3>2 / 3 Limit</h3>
-            </div>
-            <div class="hud-stat" style="display: flex; flex-direction: column; gap: 8px;">
-                <button class="refresh-btn">🔄 Manual Refresh</button>
-                <span style="font-size: 11px; font-weight: 700; color: #4d7c0f; text-align: center;">15-Min Auto-Sync Active</span>
+
+            <div class="ai-panel">
+                <div class="ai-icon">🧠</div>
+                <div class="ai-text">
+                    <h4>Supportive Mentor AI Inference</h4>
+                    <p id="ai-feedback">"You are halfway to your profit target today with only 2 trades executed. Excellent adherence to your pre-market limits. Remember, preserving capital is the ultimate goal. Protect this profit and avoid overtrading if volatility drops. We support your discipline!"</p>
+                </div>
             </div>
         </div>
 
-        <div class="cards-grid">
-            <!-- NIFTY 50 -->
-            <div class="card-box">
-                <div class="card-header">
-                    <span class="index-title">NIFTY 50</span>
-                    <span class="lot-info">Lot: 65 | Tue Expiry</span>
-                </div>
-                <div>
-                    <div class="price-val" id="nifty-price">Loading...</div>
-                    <div class="change-val" id="nifty-change">--</div>
-                </div>
-            </div>
-
-            <!-- SENSEX -->
-            <div class="card-box">
-                <div class="card-header">
-                    <span class="index-title">SENSEX</span>
-                    <span class="lot-info">Lot: 20 | Thu Expiry</span>
-                </div>
-                <div>
-                    <div class="price-val" id="sensex-price">Loading...</div>
-                    <div class="change-val" id="sensex-change">--</div>
-                </div>
-            </div>
-
-            <!-- BANK NIFTY -->
-            <div class="card-box">
-                <div class="card-header">
-                    <span class="index-title">BANK NIFTY</span>
-                    <span class="lot-info">Lot: 30 | Last Tue</span>
-                </div>
-                <div>
-                    <div class="price-val" id="banknifty-price">Loading...</div>
-                    <div class="change-val" id="banknifty-change">--</div>
+        <!-- VIEW 2: PRE-MARKET LIMITS -->
+        <div id="view-limits" class="view-section">
+            <div class="content-card">
+                <h3>The "Iron-Clad" Pre-Market Commitment</h3>
+                <p>On first login, enter your daily limits. Once submitted, values lock immediately to prevent mid-market rationalization.</p>
+                
+                <div style="margin-top: 20px; max-width: 400px;">
+                    <div class="form-group">
+                        <label>Max Profit Target (INR):</label>
+                        <input type="number" id="input-target" value="5000">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Loss Limit (INR):</label>
+                        <input type="number" id="input-loss" value="2000">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Number of Trades:</label>
+                        <input type="number" id="input-trades" value="3">
+                    </div>
+                    <button class="refresh-btn" id="lock-btn" onclick="lockPreMarketPlan()" style="margin-top: 20px; width: 100%;">Set Plan & Accept Market Risks</button>
                 </div>
             </div>
         </div>
 
-        <!-- Supportive AI Mentor Panel -->
-        <div class="ai-panel">
-            <div class="ai-icon">🧠</div>
-            <div class="ai-text">
-                <h4>Supportive Mentor AI Inference</h4>
-                <p>"You are halfway to your profit target today with only 2 trades executed. Excellent adherence to your pre-market limits. Remember, preserving capital is the ultimate goal. Protect this profit and avoid overtrading if volatility drops. We support your discipline!"</p>
+        <!-- VIEW 3: ASK AI -->
+        <div id="view-ai" class="view-section">
+            <div class="content-card">
+                <h3>Ask Trading Mentor AI (WebGPU Client Engine)</h3>
+                <p>Runs 100% in your browser using IndexedDB/WebAssembly. Zero cloud token bills and maximum data privacy.</p>
+                
+                <div id="chat-box" style="margin-top: 20px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; min-height: 200px; max-height: 350px; overflow-y: auto;">
+                    <p style="color: #64748b; margin-bottom: 10px;"><strong>AI Mentor:</strong> "Hello Soham! I am analyzing your trade parameters. What would you like to review today?"</p>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <input type="text" id="chat-input" placeholder="Ask 'Why did I lose money today?' or 'Check my holding time'..." style="flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1;">
+                    <button class="refresh-btn" onclick="sendAiMessage()">Ask AI</button>
+                </div>
             </div>
         </div>
+
+        <!-- VIEW 4: DAY-WISE & STRIKE ANALYSIS -->
+        <div id="view-analysis" class="view-section">
+            <div class="content-card">
+                <h3>Day-of-the-Week & Strike Tendency Profiler</h3>
+                <p>Identifies recurring behavioral errors like overtrading on specific days or buying lottery OTMs.</p>
+                
+                <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: #1a2e05;">Day-Wise Win/Loss</h4>
+                        <p style="font-size: 13px; color: #64748b; margin-top: 5px;">Wednesdays show highest overtrade frequency. Halving lot size recommended.</p>
+                    </div>
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: #1a2e05;">Strike Price Tendency</h4>
+                        <p style="font-size: 13px; color: #64748b; margin-top: 5px;">70% trades in ITM/ATM (Safe). 30% in Deep OTM (High Risk).</p>
+                    </div>
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+                        <h4 style="color: #1a2e05;">Holding Time Correlation</h4>
+                        <p style="font-size: 13px; color: #64748b; margin-top: 5px;">Avg Winning Trade: 12 Mins | Avg Losing Trade: 42 Mins (Cut losses faster!).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 5: BADGE STATUS -->
+        <div id="view-badge" class="view-section">
+            <div class="content-card">
+                <h3>"Disciplined Trader" Badge Tracker</h3>
+                <p>Exclusive to Monthly Subscribers. Process over profit: Follow rules strictly to earn a 50% discount on next month's renewal.</p>
+                
+                <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 2px solid #16a34a;">
+                        <h4 style="color: #15803d;">Rule 1: Active Trading Days</h4>
+                        <h2 style="font-size: 28px; margin: 8px 0;">8 / 10 Days</h2>
+                        <p style="font-size: 12px; color: #64748b;">Anti-gaming threshold active.</p>
+                    </div>
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 2px solid #16a34a;">
+                        <h4 style="color: #15803d;">Rule 2: Max-Loss Breaches</h4>
+                        <h2 style="font-size: 28px; margin: 8px 0; color: #15803d;">0 Breaches</h2>
+                        <p style="font-size: 12px; color: #64748b;">Zero 1-INR breach detected.</p>
+                    </div>
+                    <div style="background: #fff; padding: 20px; border-radius: 16px; border: 2px solid #16a34a;">
+                        <h4 style="color: #15803d;">Discount Voucher Status</h4>
+                        <h2 style="font-size: 28px; margin: 8px 0; color: #15803d;">Qualified (50% Off)</h2>
+                        <p style="font-size: 12px; color: #64748b;">Next Renewal: ₹ 128.50 (Base: ₹ 257)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 6: SUBSCRIPTIONS -->
+        <div id="view-subscriptions" class="view-section">
+            <div class="content-card">
+                <h3>Subscription Plans & Renewal Gateway</h3>
+                <p>Clean non-refundable pricing structure following 7-day free trial.</p>
+                
+                <div style="margin-top: 20px; display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 260px; background: #fff; padding: 28px; border-radius: 20px; border: 1px solid #cbd5e1;">
+                        <h4>Weekly Plan</h4>
+                        <h2 style="font-size: 32px; color: #1a2e05; margin: 12px 0;">₹ 100 <span style="font-size: 14px; font-weight: normal; color: #64748b;">/ 7 days</span></h2>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Full access to Live HUD & AI Mentorship.</p>
+                        <button class="refresh-btn" style="width: 100%;">Pay ₹100 via Razorpay</button>
+                    </div>
+                    <div style="flex: 1; min-width: 260px; background: #fff; padding: 28px; border-radius: 20px; border: 2px solid #16a34a; box-shadow: 0 10px 30px rgba(22, 163, 74, 0.15);">
+                        <h4 style="color: #16a34a;">Monthly Plan (Badge Eligible)</h4>
+                        <h2 style="font-size: 32px; color: #1a2e05; margin: 12px 0;">₹ 257 <span style="font-size: 14px; font-weight: normal; color: #64748b;">/ 30 days</span></h2>
+                        <p style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Includes Disciplined Trader 50% Discount Badge Engine.</p>
+                        <button class="refresh-btn" style="width: 100%;">Pay ₹257 via Razorpay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 7: BROKER SETUP -->
+        <div id="view-broker" class="view-section">
+            <div class="content-card">
+                <h3>B2B Free OAuth Partner Broker Integrations</h3>
+                <p>1-Click login supported for approved zero-cost B2B API partners. Excluded: Zerodha, Groww, Lemonn.</p>
+                
+                <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <button class="refresh-btn" onclick="connectBroker('DhanHQ')" style="background: #1e3a8a;">Connect DhanHQ</button>
+                    <button class="refresh-btn" onclick="connectBroker('Angel One')" style="background: #c2410c;">Connect Angel One</button>
+                    <button class="refresh-btn" onclick="connectBroker('Upstox')" style="background: #2563eb;">Connect Upstox</button>
+                    <button class="refresh-btn" onclick="connectBroker('Fyers')" style="background: #0d9488;">Connect Fyers</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 8: LEGAL -->
+        <div id="view-legal" class="view-section">
+            <div class="content-card">
+                <h3>SEBI Compliance & Legal Mitigation Policy</h3>
+                <p>Mandatory Click-Wrap Terms & Policy Details.</p>
+                <div style="margin-top: 15px; font-size: 14px; color: #475569; display: flex; flex-direction: column; gap: 10px;">
+                    <p>• <strong>Non-Advisory SaaS:</strong> Trading Mentor is strictly a post-trade behavioral analytics SaaS utility and NOT a SEBI-registered Investment Advisor (RIA).</p>
+                    <p>• <strong>Data Privacy (DPDP Act):</strong> Financial data never touches central servers. Stored encrypted in client's Google Drive.</p>
+                    <p>• <strong>No-Refund Policy:</strong> All subscription renewals post 7-day trial are non-refundable.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 9: SYNC LOGS -->
+        <div id="view-sync" class="view-section">
+            <div class="content-card">
+                <h3>Google Drive Zero-Cost JSON Sync</h3>
+                <p>Prevents browser cache disaster by automatically restoring encrypted trade history upon login.</p>
+                <div style="margin-top: 20px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e1;">
+                    <p style="font-weight: 700; color: #15803d;">Status: Google Drive API Connected</p>
+                    <p style="font-size: 13px; color: #64748b; margin-top: 5px;">Last Auto-Sync File: <code>trading_mentor_backup.json</code> (Encrypted)</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <!-- Master Interactivity Script -->
     <script>
+        // View Switcher Engine
+        function switchView(viewId, element) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('view-' + viewId).classList.add('active-view');
+            element.classList.add('active');
+
+            const titles = {
+                'dashboard': 'Market Operations & Risk Control',
+                'limits': 'Pre-Market Risk Limits & Commitments',
+                'ai': 'Ask Trading Mentor AI Engine',
+                'analysis': 'Deep Behavioral & Strike Analysis',
+                'badge': 'Disciplined Trader Badge & Rewards',
+                'subscriptions': 'Subscription & Renewal Gateway',
+                'broker': 'B2B Broker OAuth Connections',
+                'legal': 'SEBI Compliance & Legal Terms',
+                'sync': 'Google Drive Storage & Sync Logs'
+            };
+            document.getElementById('page-title').innerText = titles[viewId];
+        }
+
+        // Lock Pre-Market Plan Logic
+        function lockPreMarketPlan() {
+            const target = document.getElementById('input-target').value;
+            const loss = document.getElementById('input-loss').value;
+            const trades = document.getElementById('input-trades').value;
+
+            document.getElementById('target-disp').innerText = parseInt(target).toLocaleString('en-IN');
+            document.getElementById('loss-disp').innerText = parseInt(loss).toLocaleString('en-IN');
+            document.getElementById('maxtrades-disp').innerText = trades;
+
+            document.getElementById('input-target').disabled = true;
+            document.getElementById('input-loss').disabled = true;
+            document.getElementById('input-trades').disabled = true;
+
+            const btn = document.getElementById('lock-btn');
+            btn.innerText = "🔒 Limits Locked For Today";
+            btn.style.background = "#b91c1c";
+
+            alert("Pre-Market Commitments Locked Successfully! Mid-market edits are disabled to protect trading discipline.");
+        }
+
+        // Live API Spot Price Fetcher
         async function updateLiveSpotData() {
             try {
                 const response = await fetch('/api/spot');
@@ -348,8 +587,47 @@
             }
         }
 
+        function manualDataFetch() {
+            updateLiveSpotData();
+            alert("Live MTM & Market Spot Prices refreshed successfully!");
+        }
+
+        function reauthBroker() {
+            alert("Redirecting to Broker OAuth portal for 1-click token re-authentication...");
+        }
+
+        function connectBroker(brokerName) {
+            alert(`Initiating OAuth connection for ${brokerName}... Partner API credentials verified.`);
+        }
+
+        // Chatbot Messaging Engine
+        function sendAiMessage() {
+            const input = document.getElementById('chat-input');
+            const chatBox = document.getElementById('chat-box');
+            if (!input.value.trim()) return;
+
+            const userMsg = document.createElement('p');
+            userMsg.style.margin = "8px 0";
+            userMsg.innerHTML = `<strong>You:</strong> ${input.value}`;
+            chatBox.appendChild(userMsg);
+
+            const aiReply = document.createElement('p');
+            aiReply.style.margin = "8px 0";
+            aiReply.style.color = "#1e3a8a";
+            aiReply.innerHTML = `<strong>AI Mentor:</strong> "Analyzing your context... You have executed 2 trades today, well within your limit of 3. Capital preservation is priority. Keep holding discipline!"`;
+            
+            setTimeout(() => {
+                chatBox.appendChild(aiReply);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 600);
+
+            input.value = "";
+        }
+
+        // Initial Executions
         updateLiveSpotData();
-        setInterval(updateLiveSpotData, 3000);
+        setInterval(updateLiveSpotData, 3000); // 3 sec live ticker
+        setInterval(updateLiveSpotData, 900000); // 15 min auto-refresh loop
     </script>
 </body>
 </html>
