@@ -17,27 +17,33 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Bright Professional Light Theme with Subtle Market Candlestick Backdrop */
+        /* Lemon-Pista Glossy Silk Visiting Card Texture Background */
         body {
-            background: #f8fafc;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 200, 83, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 23, 68, 0.03) 0%, transparent 40%),
-                linear-gradient(rgba(226, 232, 240, 0.6) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            background: radial-gradient(circle at 0% 0%, #f7fee7 0%, #d9f99d 45%, #bef264 100%);
+            background-attachment: fixed;
             color: #0f172a;
             display: flex;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Classy White Sidebar */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 60%);
+            pointer-events: none;
+        }
+
+        /* Glassmorphic White Gloss Sidebar */
         .sidebar {
             width: 280px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 32px 24px;
-            border-right: 1px solid #e2e8f0;
-            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+            border-right: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 10px 0 30px rgba(101, 163, 13, 0.08);
             z-index: 10;
         }
 
@@ -45,18 +51,18 @@
             font-family: 'Cinzel', serif;
             font-size: 22px;
             font-weight: 800;
-            color: #0f172a;
+            color: #1a2e05;
             margin-bottom: 40px;
             display: flex;
             align-items: center;
             gap: 12px;
             letter-spacing: 1px;
-            border-bottom: 2px solid #f1f5f9;
+            border-bottom: 2px solid rgba(163, 230, 53, 0.4);
             padding-bottom: 16px;
         }
 
         .logo span {
-            color: #00c853;
+            color: #16a34a;
         }
 
         .nav-item {
@@ -64,20 +70,20 @@
             align-items: center;
             gap: 14px;
             padding: 14px 18px;
-            color: #475569;
+            color: #3f6212;
             text-decoration: none;
             border-radius: 12px;
             margin-bottom: 10px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 15px;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-item:hover, .nav-item.active {
-            background: #f1f5f9;
-            color: #0f172a;
-            border-left: 4px solid #00c853;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a2e05;
+            border-left: 5px solid #16a34a;
+            box-shadow: 0 8px 20px rgba(101, 163, 13, 0.15);
         }
 
         .main-content {
@@ -86,24 +92,26 @@
             display: flex;
             flex-direction: column;
             gap: 32px;
+            z-index: 10;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
             padding: 24px 32px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(101, 163, 13, 0.12);
         }
 
         .header h2 {
             font-family: 'Cinzel', serif;
             font-size: 24px;
-            font-weight: 700;
-            color: #0f172a;
+            font-weight: 800;
+            color: #1a2e05;
             letter-spacing: 0.5px;
         }
 
@@ -114,25 +122,26 @@
             padding: 8px 18px;
             border-radius: 30px;
             font-size: 13px;
-            font-weight: 700;
-            background: rgba(0, 200, 83, 0.1);
-            color: #00c853;
-            border: 1px solid rgba(0, 200, 83, 0.3);
+            font-weight: 800;
+            background: #ffffff;
+            color: #15803d;
+            border: 1px solid rgba(22, 163, 74, 0.3);
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.15);
         }
 
         .pulse-dot {
             width: 8px;
             height: 8px;
-            background-color: #00c853;
+            background-color: #16a34a;
             border-radius: 50%;
-            box-shadow: 0 0 10px #00c853;
+            box-shadow: 0 0 10px #16a34a;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 200, 83, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
         }
 
         .cards-grid {
@@ -141,26 +150,37 @@
             gap: 28px;
         }
 
-        /* High-Contrast White Cards with Green/Red Candlestick Accents */
+        /* High Gloss Visiting Card Finished Panels */
         .card-box {
-            background: #ffffff;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 254, 231, 0.8) 100%);
+            backdrop-filter: blur(20px);
             padding: 32px;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border-radius: 24px;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 15px 35px rgba(101, 163, 13, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             min-height: 200px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
+        .card-box::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            pointer-events: none;
+        }
+
         .card-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: #cbd5e1;
+            transform: translateY(-6px);
+            box-shadow: 0 25px 45px rgba(101, 163, 13, 0.2);
+            border-color: #ffffff;
         }
 
         .card-header {
@@ -173,18 +193,19 @@
             font-family: 'Cinzel', serif;
             font-size: 22px;
             font-weight: 800;
-            color: #0f172a;
+            color: #1a2e05;
             letter-spacing: 0.5px;
         }
 
         .lot-info {
             font-size: 13px;
-            color: #0f172a;
-            background: #f1f5f9;
+            color: #3f6212;
+            background: rgba(255, 255, 255, 0.9);
             padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: 700;
-            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-weight: 800;
+            border: 1px solid rgba(163, 230, 53, 0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .price-val {
@@ -207,17 +228,17 @@
             border-radius: 8px;
         }
 
-        /* Pure Market Green & Red Highlights */
+        /* Bright Candlestick Colors */
         .green {
-            color: #00c853;
-            background: rgba(0, 200, 83, 0.08);
-            border: 1px solid rgba(0, 200, 83, 0.2);
+            color: #15803d;
+            background: rgba(22, 163, 74, 0.12);
+            border: 1px solid rgba(22, 163, 74, 0.3);
         }
 
         .red {
-            color: #ff1744;
-            background: rgba(255, 23, 68, 0.08);
-            border: 1px solid rgba(255, 23, 68, 0.2);
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.12);
+            border: 1px solid rgba(220, 38, 38, 0.3);
         }
     </style>
 </head>
