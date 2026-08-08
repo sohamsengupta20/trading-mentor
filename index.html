@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Mentor - Pro Live Market Analytics</title>
+    <title>Trading Mentor - Live Spot Prices</title>
     <style>
         * {
             box-sizing: border-box;
@@ -50,7 +50,7 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
         .header {
             display: flex;
@@ -66,19 +66,22 @@
             background: #0284c7;
             color: #e0f2fe;
         }
-        .ticker-container {
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #334155;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
-        .chart-container {
-            width: 100%;
-            height: 550px;
+        .card-box {
             background-color: #1e293b;
+            padding: 16px;
             border-radius: 12px;
             border: 1px solid #334155;
-            overflow: hidden;
+        }
+        .lot-info {
+            font-size: 12px;
+            color: #38bdf8;
+            margin-top: 8px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -98,61 +101,60 @@
 
     <div class="main-content">
         <div class="header">
-            <h2>Market Analytics Workstation</h2>
-            <span class="badge">● Live Market Feed Connected</span>
+            <h2>Live Spot Price Monitor</h2>
+            <span class="badge">● Live Feed Connected</span>
         </div>
 
-        <!-- Live Ticker Widget -->
-        <div class="ticker-container">
-            <div class="tradingview-widget-container">
-                <div class="tradingview-widget-container__widget"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
-                {
-                "symbols": [
+        <div class="cards-grid">
+            <!-- NIFTY 50 CARD -->
+            <div class="card-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                     {
-                    "proName": "NSE:NIFTY",
-                    "title": "NIFTY 50"
-                    },
-                    {
-                    "proName": "BSE:SENSEX",
-                    "title": "SENSEX"
-                    },
-                    {
-                    "proName": "NSE:BANKNIFTY",
-                    "title": "BANK NIFTY"
+                    "symbol": "NSE:NIFTY",
+                    "width": "100%",
+                    "colorTheme": "dark",
+                    "isTransparent": true,
+                    "locale": "en"
                     }
-                ],
-                "colorTheme": "dark",
-                "isTransparent": true,
-                "showSymbolLogo": true,
-                "locale": "en"
-                }
-                </script>
+                    </script>
+                </div>
+                <div class="lot-info">1 Lot Size = 65 | Tuesday Expiry</div>
             </div>
-        </div>
 
-        <!-- Live Interactive Chart Widget -->
-        <div class="chart-container">
-            <div class="tradingview-widget-container" style="height:100%;width:100%">
-                <div id="tradingview_chart" style="height:calc(100% - 32px);width:100%"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                <script type="text/javascript">
-                new TradingView.widget(
-                {
-                "autosize": true,
-                "symbol": "NSE:NIFTY",
-                "interval": "5",
-                "timezone": "Asia/Kolkata",
-                "theme": "dark",
-                "style": "1",
-                "locale": "en",
-                "toolbar_bg": "#f1f3f6",
-                "enable_publishing": false,
-                "allow_symbol_change": true,
-                "container_id": "tradingview_chart"
-                }
-                );
-                </script>
+            <!-- SENSEX CARD -->
+            <div class="card-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                    {
+                    "symbol": "BSE:SENSEX",
+                    "width": "100%",
+                    "colorTheme": "dark",
+                    "isTransparent": true,
+                    "locale": "en"
+                    }
+                    </script>
+                </div>
+                <div class="lot-info">1 Lot Size = 20 | Thursday Expiry</div>
+            </div>
+
+            <!-- BANK NIFTY CARD -->
+            <div class="card-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                    {
+                    "symbol": "NSE:BANKNIFTY",
+                    "width": "100%",
+                    "colorTheme": "dark",
+                    "isTransparent": true,
+                    "locale": "en"
+                    }
+                    </script>
+                </div>
+                <div class="lot-info">1 Lot Size = 30 | Last Tuesday Expiry</div>
             </div>
         </div>
     </div>
