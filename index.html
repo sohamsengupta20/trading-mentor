@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Chart.js for Visual Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -30,7 +29,6 @@
             pointer-events: none;
         }
 
-        /* Glassmorphic Sidebar */
         .sidebar {
             width: 290px;
             background: rgba(255, 255, 255, 0.85);
@@ -54,9 +52,8 @@
             margin-bottom: 20px;
         }
 
-        /* Official Image Logo Styling */
         .brand-logo-img {
-            width: 110px;
+            width: 120px;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -154,7 +151,6 @@
 
         .login-btn-header:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(22, 163, 74, 0.4); }
 
-        /* Views Styling */
         .view-section { display: none; flex-direction: column; gap: 24px; }
         .view-section.active-view { display: flex; }
 
@@ -181,7 +177,6 @@
         .lock-overlay-box h4 { font-size: 18px; color: #1a2e05; margin-bottom: 8px; font-weight: 800; }
         .lock-overlay-box p { font-size: 14px; color: #4d7c0f; margin-bottom: 16px; }
 
-        /* Modal Popup */
         .modal-backdrop {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -235,7 +230,6 @@
         .green { color: #15803d; background: rgba(22, 163, 74, 0.12); }
         .red { color: #dc2626; background: rgba(220, 38, 38, 0.12); }
 
-        /* Broker Cards & Original Logo Badge Styling */
         .broker-card {
             background: #ffffff;
             padding: 16px 20px;
@@ -292,8 +286,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo-container">
-            <!-- Official Trading Mentor Image Logo -->
-            <img src="logo.jpg" alt="Trading Mentor Official Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/sohamsengupta20/trading-mentor/main/logo.jpg';">
+            <!-- Renamed Clean Image Path -->
+            <img src="logo.png" alt="Trading Mentor Official Logo" class="brand-logo-img">
             <div class="logo-title">TRADING MENTOR</div>
             <div class="logo-subtitle">Disciplined Trading Community</div>
         </div>
@@ -426,7 +420,7 @@
             </div>
         </div>
 
-        <!-- PUBLIC VIEW 7: BROKER PARTNERS WITH OFFICIAL BRANDED BADGES -->
+        <!-- PUBLIC VIEW 7: BROKER PARTNERS -->
         <div id="view-broker-info" class="view-section">
             <div class="content-card">
                 <h3>B2B Partner Free API Broker Integrations</h3>
@@ -462,7 +456,7 @@
         </div>
     </div>
 
-    <!-- SEBI MANDATORY CLICK-WRAP MODAL WITH OFFICIAL BROKER BUTTONS -->
+    <!-- SEBI MANDATORY CLICK-WRAP MODAL -->
     <div class="modal-backdrop" id="loginModal">
         <div class="modal-box">
             <h3>Broker Onboarding & SEBI Agreement</h3>
