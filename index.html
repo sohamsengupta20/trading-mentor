@@ -56,11 +56,12 @@
 
         /* Official Image Logo Styling */
         .brand-logo-img {
-            width: 100px;
+            width: 110px;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             margin-bottom: 12px;
+            border: 2px solid #ffffff;
         }
 
         .logo-title {
@@ -233,6 +234,57 @@
         .change-val { font-size: 14px; font-weight: 800; margin-top: 10px; display: inline-flex; padding: 4px 12px; border-radius: 8px; }
         .green { color: #15803d; background: rgba(22, 163, 74, 0.12); }
         .red { color: #dc2626; background: rgba(220, 38, 38, 0.12); }
+
+        /* Broker Cards & Original Logo Badge Styling */
+        .broker-card {
+            background: #ffffff;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            font-weight: 800;
+            color: #1a2e05;
+        }
+
+        .broker-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            flex-shrink: 0;
+        }
+
+        .broker-badge.dhan { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+        .broker-badge.upstox { background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%); }
+        .broker-badge.angel { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); }
+        .broker-badge.fyers { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); }
+
+        .broker-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: none;
+            color: #fff;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            font-size: 14.5px;
+            transition: all 0.2s;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        .broker-btn:hover { transform: translateY(-2px); opacity: 0.95; }
     </style>
 </head>
 <body>
@@ -240,8 +292,8 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo-container">
-            <!-- Uploaded Image Logo Integration -->
-            <img src="logo.jpg" alt="Trading Mentor Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/100x100?text=Logo';">
+            <!-- Official Trading Mentor Image Logo -->
+            <img src="logo.jpg" alt="Trading Mentor Official Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/sohamsengupta20/trading-mentor/main/logo.jpg';">
             <div class="logo-title">TRADING MENTOR</div>
             <div class="logo-subtitle">Disciplined Trading Community</div>
         </div>
@@ -374,16 +426,29 @@
             </div>
         </div>
 
-        <!-- PUBLIC VIEW 7: BROKER PARTNERS -->
+        <!-- PUBLIC VIEW 7: BROKER PARTNERS WITH OFFICIAL BRANDED BADGES -->
         <div id="view-broker-info" class="view-section">
             <div class="content-card">
                 <h3>B2B Partner Free API Broker Integrations</h3>
-                <p>We officially partner with brokers offering 1-click zero-cost OAuth APIs.</p>
-                <div style="margin-top: 15px; display: flex; gap: 12px; flex-wrap: wrap;">
-                    <span style="background: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1;">Dhan (DhanHQ API)</span>
-                    <span style="background: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1;">Angel One (SmartAPI)</span>
-                    <span style="background: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1;">Upstox API</span>
-                    <span style="background: #fff; padding: 8px 16px; border-radius: 8px; font-weight: 700; border: 1px solid #cbd5e1;">Fyers API</span>
+                <p>We officially partner with brokers offering 1-click zero-cost OAuth APIs for seamless integration.</p>
+                
+                <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+                    <div class="broker-card">
+                        <div class="broker-badge dhan">D</div>
+                        <span>Dhan (DhanHQ API)</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge upstox">U</div>
+                        <span>Upstox API</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge angel">A</div>
+                        <span>Angel One (SmartAPI)</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge fyers">F</div>
+                        <span>Fyers API</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -397,7 +462,7 @@
         </div>
     </div>
 
-    <!-- SEBI MANDATORY CLICK-WRAP MODAL -->
+    <!-- SEBI MANDATORY CLICK-WRAP MODAL WITH OFFICIAL BROKER BUTTONS -->
     <div class="modal-backdrop" id="loginModal">
         <div class="modal-box">
             <h3>Broker Onboarding & SEBI Agreement</h3>
@@ -412,11 +477,19 @@
                 <label for="chk2">I agree to the No-Refund Policy post 7-Day Free Trial & Google Drive sync storage terms.</label>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
-                <button class="login-btn-header" style="background: #1e3a8a;" onclick="acceptAndLogin('DhanHQ OAuth')">🔑 Connect Dhan Account</button>
-                <button class="login-btn-header" style="background: #2563eb;" onclick="acceptAndLogin('Upstox OAuth')">🔑 Connect Upstox Account</button>
-                <button class="login-btn-header" style="background: #c2410c;" onclick="acceptAndLogin('Angel One OAuth')">🔑 Connect Angel One Account</button>
-                <button class="login-btn-header" style="background: #0f172a;" onclick="acceptAndLogin('Google Drive Backup')">🌐 Backup via Google Drive</button>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+                <button class="broker-btn" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);" onclick="acceptAndLogin('DhanHQ OAuth')">
+                    <div class="broker-badge dhan" style="width: 28px; height: 28px; font-size: 14px;">D</div> Connect Dhan Account
+                </button>
+                <button class="broker-btn" style="background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);" onclick="acceptAndLogin('Upstox OAuth')">
+                    <div class="broker-badge upstox" style="width: 28px; height: 28px; font-size: 14px;">U</div> Connect Upstox Account
+                </button>
+                <button class="broker-btn" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);" onclick="acceptAndLogin('Angel One OAuth')">
+                    <div class="broker-badge angel" style="width: 28px; height: 28px; font-size: 14px;">A</div> Connect Angel One Account
+                </button>
+                <button class="broker-btn" style="background: #0f172a;" onclick="acceptAndLogin('Google Drive Backup')">
+                    🌐 Backup via Google Drive
+                </button>
                 <button onclick="closeLoginModal()" style="background: transparent; border: none; color: #64748b; font-weight: 700; cursor: pointer; margin-top: 5px;">Cancel</button>
             </div>
         </div>
