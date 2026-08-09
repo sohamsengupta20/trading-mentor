@@ -1,28 +1,33 @@
 export default async function handler(req, res) {
     try {
         const symbols = {
-            nifty: { symbol: '%5ENSEI', scale: 1 },
-            sensex: { symbol: '%5EBSESN', scale: 1 },
-            banknifty: { symbol: '%5ENSEBANK', scale: 1 },
-            vix: { symbol: '%5ENSEIVIX', scale: 1 },          // Standard Yahoo Vix Ticker Symbol
-            gift: { symbol: 'NIFTY50_NS.NS', scale: 1 },     // Corrected Gift Nifty proxy
-            dji: { symbol: '%5EDJI', scale: 1 },
-            spx: { symbol: '%5EGSPC', scale: 1 },
-            usdinr: { symbol: 'USDINR=X', scale: 1 },
-            oil: { symbol: 'BZ=F', scale: 1 },
-            btc: { symbol: 'BTC-USD', scale: 1 },
-            eth: { symbol: 'ETH-USD', scale: 1 }
+            nifty: '%5ENSEI',          // Nifty 50 Index
+            sensex: '%5EBSESN',         // BSE Sensex
+            banknifty: '%5ENSEBANK',    // Nifty Bank
+            vix: '%5EINDIAVIX',         // Corrected Yahoo Finance India VIX Ticker (^INDIAVIX)
+            gift: 'NIFTY50.NS',         // Corrected GIFT / Nifty Proxy Index feed
+            dji: '%5EDJI',              // Dow Jones Industrial Average
+            spx: '%5EGSPC',             // S&P 500
+            usdinr: 'USDINR=X',         // US Dollar / Indian Rupee
+            oil: 'BZ=F',                // Brent Crude Oil (UK Oil)
+            btc: 'BTC-USD',             // Bitcoin
+            eth: 'ETH-USD'              // Ethereum
         };
 
         const fetchPrices = await Promise.all(
-            Object.entries(symbols).map(async ([key, config]) => {
+            Object.entries(symbols).map(async ([key, symbol]) => {
                 try {
-                    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${config.symbol}?interval=1d`, {
+                    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d`, {
                         headers: { 
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
                             'Accept': 'application/json'
                         }
                     });
+                    
+                    if (!response.ok) {
+                        return { key, price: 0, change: 0, pct: 0 };
+                    }
+
                     const data = await response.json();
                     
                     if (!data.chart || !data.chart.result || data.chart.result.length === 0) {
@@ -30,14 +35,8 @@ export default async function handler(req, res) {
                     }
 
                     const meta = data.chart.result[0].meta;
-                    let price = meta.regularMarketPrice || meta.previousClose || 0;
-                    let prevClose = meta.chartPreviousClose || meta.previousClose || price;
-
-                    // Safety guards for specific indices to avoid anomalous formatting
-                    if (key === 'vix' && (price < 5 || price > 40)) {
-                        price = meta.regularMarketPrice || 13.50; // Safe realistic bounds fallback if API jitters
-                    }
-
+                    const price = meta.regularMarketPrice || meta.previousClose || 0;
+                    const prevClose = meta.chartPreviousClose || meta.previousClose || price;
                     const change = price - prevClose;
                     const pct = prevClose ? (change / prevClose) * 100 : 0;
 
