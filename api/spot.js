@@ -5,7 +5,7 @@ export default async function handler(req, res) {
             sensex: '%5EBSESN',         // Sensex
             banknifty: '%5ENSEBANK',    // Bank Nifty
             vix: '%5ENSEIVIX',          // India VIX
-            gift: 'NIFTY_NS.NS',        // Gift Nifty Proxy / Index
+            gift: 'SGXNIFTY.SG',        // GIFT Nifty Alternative Proxy
             dji: '%5EDJI',              // Dow Jones Industrial Average
             spx: '%5EGSPC',             // S&P 500
             usdinr: 'USDINR=X',         // US Dollar / Indian Rupee
@@ -22,8 +22,8 @@ export default async function handler(req, res) {
                     });
                     const data = await response.json();
                     const meta = data.chart.result[0].meta;
-                    const price = meta.regularMarketPrice || meta.previousClose;
-                    const prevClose = meta.chartPreviousClose || meta.previousClose;
+                    const price = meta.regularMarketPrice || meta.previousClose || 0;
+                    const prevClose = meta.chartPreviousClose || meta.previousClose || price;
                     const change = price - prevClose;
                     const pct = prevClose ? (change / prevClose) * 100 : 0;
 
