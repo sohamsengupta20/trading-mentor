@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Mentor - Global Market & Index Live Monitor</title>
+    <title>Trading Mentor - Global & Crypto Live Monitor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -54,7 +54,7 @@
         }
 
         .brand-logo-img {
-            width: 110px;
+            width: 120px;
             height: auto;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -178,7 +178,45 @@
         .lock-overlay-box h4 { font-size: 18px; color: #1a2e05; margin-bottom: 8px; font-weight: 800; }
         .lock-overlay-box p { font-size: 14px; color: #4d7c0f; margin-bottom: 16px; }
 
-        /* Compact Multi-Index Grid (Smaller Boxes for Multiple Indices) */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border: 2px solid #a3e635;
+        }
+
+        .modal-box h3 { font-family: 'Cinzel', serif; color: #1a2e05; margin-bottom: 12px; font-size: 20px; }
+        .modal-box p { font-size: 13.5px; color: #475569; line-height: 1.5; margin-bottom: 16px; }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #f7fee7;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #d9f99d;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input { margin-top: 3px; }
+        .checkbox-group label { font-size: 12.5px; color: #3f6212; font-weight: 700; line-height: 1.4; }
+
+        /* Compact Multi-Index Grid (Smaller Boxes for Multiple Indices & Crypto) */
         .cards-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
@@ -196,40 +234,60 @@
             justify-content: space-between;
         }
 
-        .index-name { font-size: 14px; font-weight: 800; color: #1a2e05; letter-spacing: 0.5px; }
-        .price-val { font-size: 26px; font-weight: 800; margin-top: 10px; color: #0f172a; }
+        .index-name { font-size: 13px; font-weight: 800; color: #1a2e05; letter-spacing: 0.5px; }
+        .price-val { font-size: 24px; font-weight: 800; margin-top: 10px; color: #0f172a; }
         .change-val { font-size: 12px; font-weight: 800; margin-top: 8px; display: inline-flex; padding: 3px 8px; border-radius: 6px; width: fit-content; }
         
         .green { color: #15803d; background: rgba(22, 163, 74, 0.12); }
         .red { color: #dc2626; background: rgba(220, 38, 38, 0.12); }
 
-        /* Modal Styles */
-        .modal-backdrop {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
-            z-index: 100; display: none; justify-content: center; align-items: center;
+        .broker-card {
+            background: #ffffff;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            font-weight: 800;
+            color: #1a2e05;
         }
-        .modal-box {
-            background: #ffffff; width: 90%; max-width: 550px; border-radius: 24px; padding: 32px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 2px solid #a3e635;
-        }
-        .modal-box h3 { font-family: 'Cinzel', serif; color: #1a2e05; margin-bottom: 12px; font-size: 20px; }
-        .modal-box p { font-size: 13.5px; color: #475569; line-height: 1.5; margin-bottom: 16px; }
-        .checkbox-group {
-            display: flex; align-items: flex-start; gap: 10px; background: #f7fee7;
-            padding: 12px; border-radius: 12px; border: 1px solid #d9f99d; margin-bottom: 20px;
-        }
-        .checkbox-group input { margin-top: 3px; }
-        .checkbox-group label { font-size: 12.5px; color: #3f6212; font-weight: 700; line-height: 1.4; }
 
         .broker-badge {
-            width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center;
-            justify-content: center; font-weight: 900; font-size: 14px; color: #ffffff; flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            flex-shrink: 0;
         }
+
+        .broker-badge.dhan { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); }
+        .broker-badge.upstox { background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%); }
+        .broker-badge.angel { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); }
+        .broker-badge.fyers { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); }
+
         .broker-btn {
-            width: 100%; padding: 12px 18px; border-radius: 12px; border: none; color: #fff;
-            font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px;
-            transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: none;
+            color: #fff;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            font-size: 14.5px;
+            transition: all 0.2s;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
         }
         .broker-btn:hover { transform: translateY(-2px); opacity: 0.95; }
     </style>
@@ -239,7 +297,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo-container">
-            <img src="logo.png" alt="Trading Mentor Official Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/sohamsengupta20/trading-mentor/main/logo.png';">
+            <img src="logo.png" alt="Trading Mentor Official Logo" class="brand-logo-img">
             <div class="logo-title">TRADING MENTOR</div>
             <div class="logo-subtitle">Disciplined Trading Community</div>
         </div>
@@ -266,68 +324,75 @@
             <button class="login-btn-header" onclick="openLoginModal()">🔑 Connect Broker / Login</button>
         </div>
 
-        <!-- PUBLIC VIEW 1: HOME OVERVIEW (Compact Grid for All Global & Domestic Indices) -->
+        <!-- PUBLIC VIEW 1: HOME OVERVIEW (Compact Grid for All Markets, Global, Forex & Crypto) -->
         <div id="view-overview" class="view-section active-view">
             <div class="content-card">
-                <h3>Global & Domestic Market Monitor</h3>
-                <p>Track real-time movements across major benchmark indices, global commodities, currency pairs, and volatility gauges.</p>
+                <h3>Welcome to Trading Mentor</h3>
+                <p>Trading Mentor is India's premier post-trade behavioral analytics utility designed to eliminate overtrading, revenge trading, and capital destruction in retail option traders.</p>
+                
+                <div class="lock-overlay-box">
+                    <h4>🔒 Active Risk Guard & Live Terminal Locked</h4>
+                    <p>Connect your primary trading broker (Dhan, Upstox, Angel One, Fyers) to extract live MTM, active positions, and lock daily pre-market risk commitments.</p>
+                    <button class="login-btn-header" style="margin: 0 auto;" onclick="openLoginModal()">Connect Broker & Start 7-Day Free Trial</button>
+                </div>
             </div>
 
-            <!-- Compact Grid with All Requested Indices -->
+            <!-- Compact Grid with Domestic Indices, Global Markets, Forex & Crypto (BTC, ETH) -->
             <div class="cards-grid">
-                <!-- Nifty 50 -->
                 <div class="card-box">
                     <span class="index-name">NIFTY 50 (Lot: 65)</span>
                     <div class="price-val" id="nifty-price">Loading...</div>
                     <div class="change-val" id="nifty-change">--</div>
                 </div>
-                <!-- Sensex -->
                 <div class="card-box">
                     <span class="index-name">SENSEX (Lot: 20)</span>
                     <div class="price-val" id="sensex-price">Loading...</div>
                     <div class="change-val" id="sensex-change">--</div>
                 </div>
-                <!-- Bank Nifty -->
                 <div class="card-box">
                     <span class="index-name">BANK NIFTY (Lot: 30)</span>
                     <div class="price-val" id="banknifty-price">Loading...</div>
                     <div class="change-val" id="banknifty-change">--</div>
                 </div>
-                <!-- India VIX -->
                 <div class="card-box">
-                    <span class="index-name">INDIA VIX (Volatility)</span>
+                    <span class="index-name">INDIA VIX</span>
                     <div class="price-val" id="vix-price">Loading...</div>
                     <div class="change-val" id="vix-change">--</div>
                 </div>
-                <!-- GIFT Nifty -->
                 <div class="card-box">
                     <span class="index-name">GIFT NIFTY</span>
                     <div class="price-val" id="gift-price">Loading...</div>
                     <div class="change-val" id="gift-change">--</div>
                 </div>
-                <!-- Dow Jones (DJI) -->
                 <div class="card-box">
                     <span class="index-name">DOW JONES (DJI)</span>
                     <div class="price-val" id="dji-price">Loading...</div>
                     <div class="change-val" id="dji-change">--</div>
                 </div>
-                <!-- S&P 500 (SPX) -->
                 <div class="card-box">
                     <span class="index-name">S&P 500 (SPX)</span>
                     <div class="price-val" id="spx-price">Loading...</div>
                     <div class="change-val" id="spx-change">--</div>
                 </div>
-                <!-- USD / INR -->
                 <div class="card-box">
-                    <span class="index-name">USD / INR (Currency)</span>
+                    <span class="index-name">USD / INR</span>
                     <div class="price-val" id="usdinr-price">Loading...</div>
                     <div class="change-val" id="usdinr-change">--</div>
                 </div>
-                <!-- UK OIL -->
                 <div class="card-box">
-                    <span class="index-name">UK OIL (Brent Crude)</span>
+                    <span class="index-name">UK OIL (Brent)</span>
                     <div class="price-val" id="oil-price">Loading...</div>
                     <div class="change-val" id="oil-change">--</div>
+                </div>
+                <div class="card-box" style="border: 1.5px solid #f59e0b;">
+                    <span class="index-name">BITCOIN (BTC)</span>
+                    <div class="price-val" id="btc-price">Loading...</div>
+                    <div class="change-val" id="btc-change">--</div>
+                </div>
+                <div class="card-box" style="border: 1.5px solid #8b5cf6;">
+                    <span class="index-name">ETHEREUM (ETH)</span>
+                    <div class="price-val" id="eth-price">Loading...</div>
+                    <div class="change-val" id="eth-change">--</div>
                 </div>
             </div>
         </div>
@@ -336,7 +401,17 @@
         <div id="view-hud-info" class="view-section">
             <div class="content-card">
                 <h3>Pre-Market Commitment & Real-Time HUD</h3>
-                <p>Lock your Max Profit Target, Max Loss Limit, and Trade Count every morning to prevent emotional edits.</p>
+                <p>Every morning before market opens, lock your Max Profit Target, Max Loss Limit, and Trade Count. Once submitted, limits are locked—preventing mid-market emotional edits.</p>
+
+                <div class="lock-overlay-box">
+                    <h4>Interactive HUD Preview Screenshot</h4>
+                    <div style="background: #ffffff; padding: 20px; border-radius: 16px; margin: 15px 0; border: 1px solid #cbd5e1; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
+                        <div><p style="font-size: 11px;">LIVE MTM</p><h4 style="color: #15803d; font-size: 20px;">+ ₹ 2,450</h4></div>
+                        <div><p style="font-size: 11px;">TARGET</p><h4 style="font-size: 20px;">₹ 5,000 (LOCKED)</h4></div>
+                        <div><p style="font-size: 11px;">MAX LOSS</p><h4 style="font-size: 20px;">- ₹ 2,000 (LOCKED)</h4></div>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b;">Connect broker to unlock your live terminal tracking.</p>
+                </div>
             </div>
         </div>
 
@@ -344,7 +419,13 @@
         <div id="view-ai-info" class="view-section">
             <div class="content-card">
                 <h3>In-Browser AI Mentor (Zero Server Cost)</h3>
-                <p>Runs locally in your browser memory using WebGPU/WebLLM technology[cite: 2, 3].</p>
+                <p>Runs locally in your browser memory using WebGPU/WebLLM technology[cite: 2, 3]. Zero cloud API costs and 100% financial privacy.</p>
+
+                <div class="lock-overlay-box">
+                    <h4>🧠 Supportive Mentorship AI Demo</h4>
+                    <p>"Delivers harsh reality wrapped in positive reinforcement to protect trader ego and preserve capital."</p>
+                    <button class="login-btn-header" style="margin: 0 auto;" onclick="openLoginModal()">Connect Broker to Ask AI</button>
+                </div>
             </div>
         </div>
 
@@ -352,8 +433,10 @@
         <div id="view-analytics-info" class="view-section">
             <div class="content-card">
                 <h3>Day-Wise Profiler & Strike Tendency Chart</h3>
+                <p>Visualizes Monday-to-Friday win/loss patterns, ITM vs OTM option habits, and holding time correlations.</p>
+
                 <div style="background: #fff; padding: 20px; border-radius: 16px; margin-top: 15px; border: 1px solid #e2e8f0;">
-                    <canvas id="demoChart" style="max-height: 200px;"></canvas>
+                    <canvas id="demoChart" style="max-height: 220px;"></canvas>
                 </div>
             </div>
         </div>
@@ -362,7 +445,7 @@
         <div id="view-badge-info" class="view-section">
             <div class="content-card">
                 <h3>"Disciplined Trader" Badge - 50% Renewal Discount</h3>
-                <p>Complete 10 active trading days with zero max-loss breaches to earn a 50% discount[cite: 7, 9].</p>
+                <p>Reward process over profit! Monthly subscribers who complete at least 10 active trading days with ZERO max-loss breaches earn a flat 50% discount on next month's fee (Price drops to ₹128.50).</p>
             </div>
         </div>
 
@@ -370,16 +453,18 @@
         <div id="view-pricing" class="view-section">
             <div class="content-card">
                 <h3>Transparent Pricing Structure</h3>
+                <p>All plans include a 7-Day Free Trial followed by simple non-refundable subscriptions[cite: 4, 6, 7].</p>
+                
                 <div style="display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 220px; background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1;">
+                    <div style="flex: 1; min-width: 250px; background: #fff; padding: 24px; border-radius: 16px; border: 1px solid #cbd5e1;">
                         <h4>Weekly Plan[cite: 7, 9]</h4>
-                        <h2 style="font-size: 26px; color: #1a2e05; margin: 8px 0;">₹ 100 <span style="font-size: 13px; font-weight: normal;">/ week</span>[cite: 7, 9]</h2>
-                        <button class="login-btn-header" style="width: 100%;" onclick="openLoginModal()">Start Trial[cite: 7, 9]</button>
+                        <h2 style="font-size: 32px; color: #1a2e05; margin: 10px 0;">₹ 100 <span style="font-size: 14px; font-weight: normal;">/ week</span>[cite: 7, 9]</h2>
+                        <button class="login-btn-header" style="width: 100%;" onclick="openLoginModal()">Start 7-Day Free Trial[cite: 7, 9]</button>
                     </div>
-                    <div style="flex: 1; min-width: 220px; background: #fff; padding: 20px; border-radius: 16px; border: 2px solid #16a34a;">
-                        <h4 style="color: #16a34a;">Monthly Plan[cite: 7, 9]</h4>
-                        <h2 style="font-size: 26px; color: #1a2e05; margin: 8px 0;">₹ 257 <span style="font-size: 13px; font-weight: normal;">/ month</span>[cite: 7, 9]</h2>
-                        <button class="login-btn-header" style="width: 100%;" onclick="openLoginModal()">Start Trial[cite: 7, 9]</button>
+                    <div style="flex: 1; min-width: 250px; background: #fff; padding: 24px; border-radius: 16px; border: 2px solid #16a34a;">
+                        <h4 style="color: #16a34a;">Monthly Plan (Badge Eligible)[cite: 7, 9]</h4>
+                        <h2 style="font-size: 32px; color: #1a2e05; margin: 10px 0;">₹ 257 <span style="font-size: 14px; font-weight: normal;">/ month</span>[cite: 7, 9]</h2>
+                        <button class="login-btn-header" style="width: 100%;" onclick="openLoginModal()">Start 7-Day Free Trial[cite: 7, 9]</button>
                     </div>
                 </div>
             </div>
@@ -389,7 +474,26 @@
         <div id="view-broker-info" class="view-section">
             <div class="content-card">
                 <h3>B2B Partner Free API Broker Integrations[cite: 3, 6]</h3>
-                <p>Connect securely with Dhan, Upstox, Angel One, and Fyers[cite: 3, 6].</p>
+                <p>We officially partner with brokers offering 1-click zero-cost OAuth APIs for seamless integration[cite: 3, 6].</p>
+                
+                <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+                    <div class="broker-card">
+                        <div class="broker-badge dhan">D</div>
+                        <span>Dhan (DhanHQ API)</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge upstox">U</div>
+                        <span>Upstox API</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge angel">A</div>
+                        <span>Angel One (SmartAPI)</span>
+                    </div>
+                    <div class="broker-card">
+                        <div class="broker-badge fyers">F</div>
+                        <span>Fyers API</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -397,33 +501,38 @@
         <div id="view-legal-info" class="view-section">
             <div class="content-card">
                 <h3>SEBI Compliance & Legal Mitigation</h3>
-                <p>Trading Mentor is a behavioral utility, NOT a SEBI-registered RIA[cite: 6, 7].</p>
+                <p>Trading Mentor is strictly a post-trade behavioral SaaS utility and NOT a SEBI-registered Investment Advisor (RIA)[cite: 6, 7]. Financial data is encrypted and saved directly in your personal Google Drive.</p>
             </div>
         </div>
     </div>
 
-    <!-- SEBI LOGIN MODAL -->
+    <!-- SEBI MANDATORY CLICK-WRAP MODAL -->
     <div class="modal-backdrop" id="loginModal">
         <div class="modal-box">
             <h3>Broker Onboarding & SEBI Agreement</h3>
-            <p>Connect your broker to extract live market feed and risk analytics[cite: 3].</p>
+            <p>Connect your primary broker to extract live MTM and trade statistics[cite: 3]. Please review mandatory SEBI compliance terms[cite: 6].</p>
+
             <div class="checkbox-group">
                 <input type="checkbox" id="chk1">
-                <label for="chk1">I acknowledge Trading Mentor is a behavioral utility, NOT a SEBI-registered RIA[cite: 6].</label>
+                <label for="chk1">I acknowledge Trading Mentor is a behavioral utility, NOT a SEBI-registered RIA[cite: 6]. I make my own trading decisions.</label>
             </div>
             <div class="checkbox-group">
                 <input type="checkbox" id="chk2">
-                <label for="chk2">I agree to the No-Refund Policy post 7-Day Free Trial[cite: 4, 6, 7].</label>
+                <label for="chk2">I agree to the No-Refund Policy post 7-Day Free Trial & Google Drive sync storage terms[cite: 4, 6, 7].</label>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
-                <button class="broker-btn" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);" onclick="acceptAndLogin('DhanHQ')">
-                    <div class="broker-badge dhan" style="width: 24px; height: 24px; font-size: 12px;">D</div> Connect Dhan Account
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+                <button class="broker-btn" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);" onclick="acceptAndLogin('DhanHQ OAuth')">
+                    <div class="broker-badge dhan" style="width: 28px; height: 28px; font-size: 14px;">D</div> Connect Dhan Account
                 </button>
-                <button class="broker-btn" style="background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);" onclick="acceptAndLogin('Upstox')">
-                    <div class="broker-badge upstox" style="width: 24px; height: 24px; font-size: 12px;">U</div> Connect Upstox Account
+                <button class="broker-btn" style="background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);" onclick="acceptAndLogin('Upstox OAuth')">
+                    <div class="broker-badge upstox" style="width: 28px; height: 28px; font-size: 14px;">U</div> Connect Upstox Account
                 </button>
-                <button class="broker-btn" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);" onclick="acceptAndLogin('Angel One')">
-                    <div class="broker-badge angel" style="width: 24px; height: 24px; font-size: 12px;">A</div> Connect Angel One Account
+                <button class="broker-btn" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);" onclick="acceptAndLogin('Angel One OAuth')">
+                    <div class="broker-badge angel" style="width: 28px; height: 28px; font-size: 14px;">A</div> Connect Angel One Account
+                </button>
+                <button class="broker-btn" style="background: #0f172a;" onclick="acceptAndLogin('Google Drive Backup')">
+                    🌐 Backup via Google Drive
                 </button>
                 <button onclick="closeLoginModal()" style="background: transparent; border: none; color: #64748b; font-weight: 700; cursor: pointer; margin-top: 5px;">Cancel</button>
             </div>
@@ -434,11 +543,12 @@
         function switchView(viewId, element) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active-view'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
             document.getElementById('view-' + viewId).classList.add('active-view');
             element.classList.add('active');
 
             const titles = {
-                'overview': 'Global & Domestic Market Monitor',
+                'overview': 'Platform Overview & Community',
                 'hud-info': 'Target vs Achieved HUD Preview',
                 'ai-info': 'In-Browser AI Engine Demo',
                 'analytics-info': 'Day-Wise & Strike Analytics',
@@ -450,51 +560,65 @@
             document.getElementById('page-title').innerText = titles[viewId];
         }
 
-        function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
-        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
 
         function acceptAndLogin(provider) {
-            if (!document.getElementById('chk1').checked || !document.getElementById('chk2').checked) {
+            const c1 = document.getElementById('chk1').checked;
+            const c2 = document.getElementById('chk2').checked;
+
+            if (!c1 || !c2) {
                 alert("Please check both SEBI Compliance checkboxes to proceed.");
                 return;
             }
-            alert(`SEBI Terms Accepted! Connecting to ${provider} OAuth...`);
+
+            alert(`SEBI Terms Accepted! Initiating OAuth for ${provider}... Redirecting to live trading dashboard.`);
             closeLoginModal();
         }
 
+        // Render Demo Analytics Chart
         window.onload = function() {
             const ctx = document.getElementById('demoChart').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                    datasets: [{ label: 'Win Rate (%)', data: [65, 70, 40, 75, 60], backgroundColor: ['#16a34a', '#16a34a', '#dc2626', '#16a34a', '#16a34a'] }]
+                    datasets: [{
+                        label: 'Win Rate (%)',
+                        data: [65, 70, 40, 75, 60],
+                        backgroundColor: ['#16a34a', '#16a34a', '#dc2626', '#16a34a', '#16a34a']
+                    }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
         };
 
-        // Extended Live Feed Script for all Indices
-        async function updateMarketData() {
+        // Live Market Spot & Crypto Fetcher
+        async function updateLiveSpotData() {
             try {
                 const response = await fetch('/api/spot');
                 const data = await response.json();
 
-                const indices = ['nifty', 'sensex', 'banknifty', 'vix', 'gift', 'dji', 'spx', 'usdinr', 'oil'];
-                indices.forEach(item => {
-                    if (data[item]) {
-                        document.getElementById(`${item}-price`).innerText = data[item].price.toLocaleString('en-IN', {minimumFractionDigits: 2});
-                        document.getElementById(`${item}-change`).innerText = `${data[item].change >= 0 ? '▲ +' : '▼ '}${data[item].change.toFixed(2)} (${data[item].pct.toFixed(2)}%)`;
-                        document.getElementById(`${item}-change`).className = `change-val ${data[item].change >= 0 ? 'green' : 'red'}`;
+                const items = ['nifty', 'sensex', 'banknifty', 'vix', 'gift', 'dji', 'spx', 'usdinr', 'oil', 'btc', 'eth'];
+                items.forEach(id => {
+                    if (data[id]) {
+                        document.getElementById(`${id}-price`).innerText = data[id].price.toLocaleString('en-IN', {minimumFractionDigits: 2});
+                        document.getElementById(`${id}-change`).innerText = `${data[id].change >= 0 ? '▲ +' : '▼ '}${data[id].change.toFixed(2)} (${data[id].pct.toFixed(2)}%)`;
+                        document.getElementById(`${id}-change`).className = `change-val ${data[id].change >= 0 ? 'green' : 'red'}`;
                     }
                 });
             } catch (err) {
-                console.error("Error fetching market data feed:", err);
+                console.error("Error fetching market data:", err);
             }
         }
 
-        updateMarketData();
-        setInterval(updateMarketData, 3000);
+        updateLiveSpotData();
+        setInterval(updateLiveSpotData, 3000);
     </script>
 </body>
 </html>
