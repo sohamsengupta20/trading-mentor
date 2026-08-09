@@ -166,11 +166,12 @@
         .content-card h3 { font-family: 'Cinzel', serif; font-size: 22px; color: #1a2e05; margin-bottom: 12px; }
         .content-card p { font-size: 15px; color: #334155; line-height: 1.6; font-weight: 600; }
 
-        /* Highly Attractive & Relatable HD Desk Setup Background */
+        /* Bull (Left Green) vs Bear (Right Bearish Red) Dual Background Box */
         .lock-overlay-box {
             position: relative;
-            background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.92)), 
-                        url('https://images.unsplash.com/photo-1642543492481-44e81e3914a7?q=80&w=1200&auto=format&fit=crop');
+            background: 
+                linear-gradient(90deg, rgba(22, 101, 52, 0.88) 0%, rgba(15, 23, 42, 0.92) 50%, rgba(153, 27, 27, 0.88) 100%),
+                url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             border: 2px solid #a3e635;
@@ -179,12 +180,38 @@
             text-align: center;
             margin-top: 20px;
             color: #ffffff;
-            box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
             overflow: hidden;
         }
 
-        .lock-overlay-box h4 { font-size: 22px; color: #f7fee7; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px; }
-        .lock-overlay-box p { font-size: 15px; color: #cbd5e1; margin-bottom: 22px; font-weight: 500; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+        /* Bull & Bear Graphic Overlay Elements */
+        .lock-overlay-box::before {
+            content: '🐂';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 85px;
+            opacity: 0.35;
+            filter: drop-shadow(0 0 15px #22c55e);
+            pointer-events: none;
+        }
+
+        .lock-overlay-box::after {
+            content: '🐻';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 85px;
+            opacity: 0.35;
+            filter: drop-shadow(0 0 15px #ef4444);
+            pointer-events: none;
+        }
+
+        .lock-overlay-box h4 { font-size: 22px; color: #f7fee7; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.5px; position: relative; z-index: 2; }
+        .lock-overlay-box p { font-size: 15px; color: #e2e8f0; margin-bottom: 22px; font-weight: 600; max-width: 650px; margin-left: auto; margin-right: auto; line-height: 1.5; position: relative; z-index: 2; }
+        .lock-overlay-box button { position: relative; z-index: 2; }
 
         .modal-backdrop {
             position: fixed;
@@ -338,7 +365,7 @@
                 <h3>Welcome to Trading Mentor</h3>
                 <p>Trading Mentor is India's premier post-trade behavioral analytics utility designed to eliminate overtrading, revenge trading, and capital destruction in retail option traders.</p>
                 
-                <!-- Highly Attractively Styled HD Banner Box -->
+                <!-- Bull (Green Left) vs Bear (Red Right) Card Box -->
                 <div class="lock-overlay-box">
                     <h4>🔒 Active Risk Guard & Live Terminal Locked</h4>
                     <p>Connect your primary trading broker (Dhan, Upstox, Angel One, Fyers) to extract live MTM, active positions, and lock daily pre-market risk commitments.</p>
